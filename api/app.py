@@ -12,7 +12,7 @@ def get_msg():
 
 @app.route('/getbooklist')
 def getbooklist():
-    store_data = pd.read_csv('Books.csv')
+    store_data = pd.read_csv('Dataset.csv')
     store_data = store_data.head(2)
     json_data = store_data.to_json(orient='index')
     return json_data

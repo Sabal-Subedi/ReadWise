@@ -35,7 +35,7 @@ function App() {
           <h1>LIST OF BOOK </h1>
           {/* {bookList[0]["Book-Title"]} */}
           {bookList.map((book) => (
-            <h1>{book["Book-Title"]}</h1>
+            <h1>{book["book_title"]}</h1>
           ))}
         </div>
       ) : (
