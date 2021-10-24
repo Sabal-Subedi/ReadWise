@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import HomeComponent from "./components/HomeComponent";
+import NavBarComponent from "./components/NavbarComponent";
 import SearchBooks from "./components/SearchBooks";
 
 function App() {
   const [bookList, setBookList] = useState(null);
-
-  // useEffect(() => {
-  //   fetch("/msg")
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data.hello));
-  // }, []);
+  const [basketItem, setBasketItem] = useState([]);
 
   useEffect(() => {
     fetch("/getbooklist")
@@ -30,21 +28,21 @@ function App() {
   console.log(bookList);
   return (
     <div className="App">
-      {bookList ? (
-        <div>
-          <h1>LIST OF BOOK </h1>
-          {/* {bookList[0]["Book-Title"]} */}
-          {bookList.map((book) => (
-            <h1>{book["book_title"]}</h1>
-          ))}
-        </div>
-      ) : (
-        <h1>no books</h1>
-      )}
-
-      <div>
-        <SearchBooks />
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <NavBarComponent
+              basketItem={basketItem}
+              setBasketItem={setBasketItem}
+            />
+            <HomeComponent
+              bookList={bookList}
+              basketItem={basketItem}
+              setBasketItem={setBasketItem}
+            />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
