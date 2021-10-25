@@ -6,9 +6,8 @@ function HomeComponent({ bookList, basketItem, setBasketItem }) {
   return (
     <div className="homeContainer">
       {bookList ? (
-        <div>
+        <div className="homeElement">
           <h1>LIST OF BOOK </h1>
-          {/* {bookList[0]["Book-Title"]} */}
           {bookList.map((book) => (
             <BookContainer
               id={book["id"]}

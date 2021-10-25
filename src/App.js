@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomeComponent from "./components/HomeComponent";
+import LoginPage from "./components/LoginPage";
 import NavBarComponent from "./components/NavbarComponent";
+import RegistrationPage from "./components/RegistrationPage";
 import SearchBooks from "./components/SearchBooks";
 
 function App() {
@@ -30,6 +32,12 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/register">
+            <RegistrationPage />
+          </Route>
           <Route path="/">
             <NavBarComponent
               basketItem={basketItem}
