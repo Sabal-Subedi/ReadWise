@@ -4,12 +4,29 @@ import "../css/Login.css";
 import login from "../images/login.png";
 
 function LoginPage() {
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("Male");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   const signInHandler = (e) => {
     e.preventDefault();
+
+    fetch("/loginuser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((message) => {
+        console.log(message);
+      });
+
+    // history.push("/");
   };
 
   return (

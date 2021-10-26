@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomeComponent from "./components/HomeComponent";
 import LoginPage from "./components/LoginPage";
 import NavBarComponent from "./components/NavbarComponent";
+import ProductDetails from "./components/ProductDetails";
 import RegistrationPage from "./components/RegistrationPage";
 import SearchBooks from "./components/SearchBooks";
 
@@ -34,6 +35,12 @@ function App() {
         <Switch>
           <Route path="/login">
             <LoginPage />
+          </Route>
+          <Route path="/productdetails">
+            <ProductDetails
+              basketItem={basketItem}
+              setBasketItem={setBasketItem}
+            />
           </Route>
           <Route path="/register">
             <RegistrationPage />

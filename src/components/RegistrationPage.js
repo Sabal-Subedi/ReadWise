@@ -12,6 +12,22 @@ function RegistrationPage() {
 
   const registerHandler = (e) => {
     e.preventDefault();
+
+    fetch("/registeruser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        gender: gender,
+        email: email,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((message) => {
+        console.log(message);
+      });
+
     history.push("/login");
   };
 
