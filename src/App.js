@@ -37,6 +37,10 @@ function App() {
             <LoginPage />
           </Route>
           <Route path="/productdetails">
+            <NavBarComponent
+              basketItem={basketItem}
+              setBasketItem={setBasketItem}
+            />
             <ProductDetails
               basketItem={basketItem}
               setBasketItem={setBasketItem}

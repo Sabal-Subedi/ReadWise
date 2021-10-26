@@ -68,9 +68,6 @@ function BookContainer({
         </div>
         <img className="product__image" src={image} alt="" />
       </div>
-      <button onClick={addToBasket}>
-        Add To Basket <IoBagAddSharp size={15} />
-      </button>
     </div>
   );
 }

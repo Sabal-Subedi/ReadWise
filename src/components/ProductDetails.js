@@ -42,7 +42,7 @@ function ProductDetails({ basketItem, setBasketItem }) {
       </div>
       <img className="product__image" src={location.state.image} alt="" />
       <button onClick={addToBasket}>
-        Add To Basket <IoBagAddSharp size={15} />
+        Add To Cart <IoBagAddSharp size={15} />
       </button>
     </div>
   );
