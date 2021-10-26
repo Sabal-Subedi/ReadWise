@@ -18,12 +18,11 @@ class History(db.Model):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fullname = db.Column(db.String(60))
-    gender = db.Column(db.String(60))
     email = db.Column(db.String(60))
     password = db.Column(db.String(60))
 
     def __repr__(self):
-        return f"User('{self.id}', '{self.fullname}','{self.gender}','{self.email}','{self.password}')"
+        return f"User('{self.id}', '{self.fullname}','{self.email}','{self.password}')"
 
 
 def getData():
@@ -58,7 +57,7 @@ def searchbook():
 @app.route('/registeruser', methods=["POST"])
 def registeruser():
     request_data = request.get_json()
-    new_record = User(fullname=request_data['name'], gender=request_data['gender'],
+    new_record = User(fullname=request_data['name'],
                       email=request_data['email'], password=request_data['password'])
     db.session.add(new_record)
     db.session.commit()

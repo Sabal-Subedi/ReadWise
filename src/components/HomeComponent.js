@@ -12,6 +12,7 @@ function HomeComponent({ bookList, basketItem, setBasketItem }) {
             <BookContainer
               id={book["id"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}

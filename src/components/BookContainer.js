@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/BookComponent.css";
 import { IoBagAddSharp } from "react-icons/io5";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function BookContainer({
   id,
@@ -55,6 +55,7 @@ function BookContainer({
             <small>$</small>
             <strong>{price}</strong>
           </p>
+          <p>{description}</p>
           <div className="product__rating">
             {/* {Array(rating)
             .fill()

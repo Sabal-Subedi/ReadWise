@@ -5,7 +5,7 @@ import LoginPage from "./components/LoginPage";
 import NavBarComponent from "./components/NavbarComponent";
 import ProductDetails from "./components/ProductDetails";
 import RegistrationPage from "./components/RegistrationPage";
-import SearchBooks from "./components/SearchBooks";
+// import SearchBooks from "./components/SearchBooks";
 
 function App() {
   const [bookList, setBookList] = useState(null);

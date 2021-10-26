@@ -5,7 +5,6 @@ import login from "../images/login.png";
 
 function LoginPage() {
   const [name, setName] = useState("");
-  const [gender, setGender] = useState("Male");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../css/Registration.css";
 import register from "../images/register.png";
 
 function RegistrationPage() {
   const [name, setName] = useState("");
-  const [gender, setGender] = useState("Male");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -18,7 +17,6 @@ function RegistrationPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: name,
-        gender: gender,
         email: email,
         password: password,
       }),
@@ -30,8 +28,6 @@ function RegistrationPage() {
 
     history.push("/login");
   };
-
-  console.log(gender);
 
   return (
     <div className="registration__page">
@@ -46,22 +42,6 @@ function RegistrationPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             // required
-          />
-
-          <h5>Gender</h5>
-          <h5>Male</h5>
-          <input
-            type="radio"
-            checked={gender === "Male"}
-            value="Male"
-            onClick={() => setGender("Male")}
-          />
-          <h5>Female</h5>
-          <input
-            type="radio"
-            checked={gender === "Female"}
-            value="Female"
-            onClick={() => setGender("Female")}
           />
 
           <h5>E-mail</h5>
