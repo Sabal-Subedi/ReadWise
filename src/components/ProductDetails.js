@@ -12,10 +12,10 @@ function ProductDetails({ basketItem, setBasketItem }) {
         id: location.state.id,
         title: location.state.title,
         price: location.state.price,
+        image: location.state.image,
       },
     ]);
   };
-  console.log(location.state.description);
 
   return (
     <div className="productdetailsdetails">

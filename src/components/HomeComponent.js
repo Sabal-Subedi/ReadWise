@@ -18,7 +18,7 @@ function HomeComponent({ bookList, basketItem, setBasketItem }) {
               genre={book["genre"]}
               image={book["image_url"]}
               rating={book["rating"]}
-              price={book["price"]}
+              price={parseInt(book["price"])}
               setBasketItem={setBasketItem}
               basketItem={basketItem}
             />
@@ -33,7 +33,7 @@ function HomeComponent({ bookList, basketItem, setBasketItem }) {
               genre={book["genre"]}
               image={book["image_url"]}
               rating={book["rating"]}
-              price={book["price"]}
+              price={parseInt(book["price"])}
               setBasketItem={setBasketItem}
               basketItem={basketItem}
             />

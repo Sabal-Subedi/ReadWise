@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import CardContainer from "./components/CardContainer";
 import HomeComponent from "./components/HomeComponent";
 import LoginPage from "./components/LoginPage";
 import NavBarComponent from "./components/NavbarComponent";
@@ -35,6 +36,16 @@ function App() {
         <Switch>
           <Route path="/login">
             <LoginPage />
+          </Route>
+          <Route path="/checkout">
+            <NavBarComponent
+              basketItem={basketItem}
+              setBasketItem={setBasketItem}
+            />
+            <CardContainer
+              basketItem={basketItem}
+              setBasketItem={setBasketItem}
+            />
           </Route>
           <Route path="/productdetails">
             <NavBarComponent
