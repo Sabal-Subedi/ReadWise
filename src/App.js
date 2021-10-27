@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CardContainer from "./components/CardContainer";
+import CartContainer from "./components/CartContainer";
 import HomeComponent from "./components/HomeComponent";
 import LoginPage from "./components/LoginPage";
 import NavBarComponent from "./components/NavbarComponent";
@@ -42,7 +42,7 @@ function App() {
               basketItem={basketItem}
               setBasketItem={setBasketItem}
             />
-            <CardContainer
+            <CartContainer
               basketItem={basketItem}
               setBasketItem={setBasketItem}
             />
