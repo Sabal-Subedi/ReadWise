@@ -15,6 +15,16 @@ class History(db.Model):
         return f"History('{self.id}', '{self.title}')"
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fullname = db.Column(db.String(60))
+    email = db.Column(db.String(60))
+    password = db.Column(db.String(60))
+
+    def __repr__(self):
+        return f"User('{self.id}', '{self.fullname}','{self.email}','{self.password}')"
+
+
 def getData():
     data = pd.read_csv('Dataset.csv')
     data = data.head(5)
@@ -42,3 +52,23 @@ def searchbook():
     db.session.add(new_record)
     db.session.commit()
     return request_data
+
+
+@app.route('/registeruser', methods=["POST"])
+def registeruser():
+    request_data = request.get_json()
+    new_record = User(fullname=request_data['name'],
+                      email=request_data['email'], password=request_data['password'])
+    db.session.add(new_record)
+    db.session.commit()
+    return request_data
+
+
+# @app.route('/loginuser', methods=["POST"])
+# def loginuser():
+#     request_data = request.get_json()
+#     new_record = User.query.filter_by(email=request_data['email']).first_or_404(
+#         description='There is no data with {}'.format(request_data['email']))
+#     # db.session.add(new_record)
+#     # db.session.commit()
+#     return {"result": new_record}

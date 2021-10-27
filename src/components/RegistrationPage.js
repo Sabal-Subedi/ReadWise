@@ -1,70 +1,71 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../css/Registration.css";
 import register from "../images/register.png";
 
 function RegistrationPage() {
   const [name, setName] = useState("");
-  const [gender, setGender] = useState("Male");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   const registerHandler = (e) => {
     e.preventDefault();
+
+    // fetch("/registeruser", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     name: name,
+    //     email: email,
+    //     password: password,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((message) => {
+    //     console.log(message);
+    //   });
+    console.log(name, email, password);
+
     history.push("/login");
   };
 
-  console.log(gender);
-
   return (
-    <div className="registration__page">
-      <div className="register__container">
-        <img className="register__logo" src={register} alt="" />
-        <h1>Register</h1>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <div class="fadeIn first">
+          <h1>Sign Up </h1>
+        </div>
 
         <form onSubmit={registerHandler}>
-          <h5>Full Name</h5>
           <input
             type="text"
+            id="username"
+            class="registration__input"
+            name="username"
+            placeholder="Username"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            // required
-          />
-
-          <h5>Gender</h5>
-          <h5>Male</h5>
-          <input
-            type="radio"
-            checked={gender === "Male"}
-            value="Male"
-            onClick={() => setGender("Male")}
-          />
-          <h5>Female</h5>
-          <input
-            type="radio"
-            checked={gender === "Female"}
-            value="Female"
-            onClick={() => setGender("Female")}
-          />
-
-          <h5>E-mail</h5>
+          ></input>
           <input
             type="text"
+            id="email"
+            class="registration__input"
+            name="email"
+            placeholder="E-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <h5>Password</h5>
+          ></input>
           <input
             type="password"
+            id="password"
+            class="registration__input"
+            name="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <button className="login__signInButton" type="submit">
-            Register
-          </button>
+          ></input>
+          <input type="submit" class="fadeIn fourth" value="submit"></input>
         </form>
       </div>
     </div>

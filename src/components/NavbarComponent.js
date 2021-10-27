@@ -20,7 +20,11 @@ const NavBarComponent = ({ basketItem, setBasketItem }) => {
       </Link>
       <div className="navbar__serach">
         <div className="navbar__searchInput">
-          <input className="search__field" type="text" />
+          <input
+            className="navbarsearch__field"
+            type="text"
+            placeholder="Search"
+          />
         </div>
         <BiSearch className="navbar__searchIcon"></BiSearch>
       </div>

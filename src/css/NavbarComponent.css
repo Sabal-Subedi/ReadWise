@@ -3,7 +3,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  background-color: black;
+  background-color: #56baed;
   top: 0;
   z-index: 100;
   width: 100%;
@@ -46,13 +46,21 @@
   margin-top: 5px;
 }
 
-.search__field {
+.navbarsearch__field {
+  margin-top: -1em;
   width: 99%;
   border-style: none;
+  height: 2em;
+  background-color: gainsboro;
 }
 .navbar__searchIcon {
   padding: 5px;
-  background-color: crimson;
+  background-color: gainsboro;
+  cursor: pointer;
+}
+
+.navbar__searchIcon:hover {
+  background-color: red;
   cursor: pointer;
 }
 

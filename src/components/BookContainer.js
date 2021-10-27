@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/BookComponent.css";
-import { IoBagAddSharp } from "react-icons/io5";
+import { useHistory } from "react-router-dom";
 
 function BookContainer({
   id,
@@ -15,6 +15,8 @@ function BookContainer({
   basketItem,
   setBasketItem,
 }) {
+  const history = useHistory();
+
   const addToBasket = (e) => {
     e.preventDefault();
     setBasketItem([
@@ -28,28 +30,38 @@ function BookContainer({
   };
   console.log(basketItem);
 
+  const bookDetailHandler = (e) => {
+    e.preventDefault();
+    history.push("/productdetails", {
+      id: id,
+      author: author,
+      title: title,
+      page: page,
+      genre: genre,
+      image: image,
+      description: description,
+      rating: rating,
+      price: price,
+    });
+  };
+
   return (
-    <div className="product">
-      <div className="product__info">
-        <p>{title}</p>
-        <p className="product__price">
-          <small>$</small>
-          <strong>{price}</strong>
-        </p>
-        <div className="product__rating">
-          {/* {Array(rating)
-            .fill()
-            .map((_, i) => (
-              <p>
-                <StarIcon />
-              </p>
-            ))} */}
+    <div className="bookcontainer" onClick={bookDetailHandler}>
+      <div className="card">
+        <img className="bookcontiner__image" src={image} alt="" />
+        <div className="bookcontainer__title">
+          <p>{title}</p>
+
+          <p className="bookcontainer__price">
+            <small>$</small>
+            {price}
+          </p>
         </div>
+
+        <button className="bookcontainer__button" onClick={addToBasket}>
+          Add To Cart
+        </button>
       </div>
-      <img className="product__image" src={image} alt="" />
-      <button onClick={addToBasket}>
-        Add To Basket <IoBagAddSharp size={15} />
-      </button>
     </div>
   );
 }
