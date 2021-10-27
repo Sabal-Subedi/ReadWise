@@ -43,7 +43,7 @@ const NavBarComponent = ({ basketItem, setBasketItem }) => {
           </div>
         </Link>
 
-        <Link to="/checkout" className="link">
+        <Link to={basketItem.length && "/checkout"} className="link">
           <div className="navbar__optionBasket">
             <IoBagHandleSharp className="basket__logo" size={30} />
             <span className="navbar__basketCount">{basketItem?.length}</span>
