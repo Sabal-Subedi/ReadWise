@@ -1,42 +1,43 @@
-.product {
-  display: flex;
-  flex-direction: column;
+.bookcontainer {
+  margin-top: 2em;
+  display: inline-flex;
+  /* border: 3px solid blue; */
+  background-color: #eee;
+  width: 12em;
+}
+
+.card {
+  height: 17em;
+  width: 10em;
+  margin-right: 3em;
+  margin-bottom: 7em;
+  padding: 1em 1em 1em 1em;
+
+  /* border: 2px solid red; */
+}
+
+.bookcontainer__button {
+  width: 10em;
+  height: 2.5em;
+  font-size: 1em;
   align-items: center;
-  justify-content: center;
-  margin: 10px;
-  padding: 0 20px;
-  width: 93%;
-  max-height: 400px;
-  min-width: 100px;
-  background-color: white;
-  z-index: 1;
-}
-
-.product__info {
-  height: 100px;
-  margin-bottom: 15px;
-}
-
-.product__price {
-  margin-top: 5px;
-}
-
-.product__rating {
-  display: flex;
-}
-.product > button {
-  background-color: crimson;
+  color: white;
+  background-color: #56baed;
   border: none;
-  margin-top: 10px;
-  color: black;
-  height: 40px;
-  padding: 10px;
-  margin-bottom: 5px;
+  border-radius: 0.2em;
+  /* margin-left: 1em; */
 }
 
-.product > img {
-  max-height: 200px;
+.bookcontiner__image {
+  height: 95%;
   width: 100%;
-  object-fit: contain;
-  margin-bottom: 15px;
+  margin-top: -0.5em;
+}
+
+.bookcontainer__title {
+  margin-top: -0.7em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 10em;
 }

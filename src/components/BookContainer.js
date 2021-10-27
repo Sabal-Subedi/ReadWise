@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/BookComponent.css";
-import { IoBagAddSharp } from "react-icons/io5";
 import { useHistory } from "react-router-dom";
 
 function BookContainer({
@@ -47,26 +46,21 @@ function BookContainer({
   };
 
   return (
-    <div className="product">
-      <div onClick={bookDetailHandler}>
-        <div className="product__info">
+    <div className="bookcontainer" onClick={bookDetailHandler}>
+      <div className="card">
+        <img className="bookcontiner__image" src={image} alt="" />
+        <div className="bookcontainer__title">
           <p>{title}</p>
-          <p className="product__price">
+
+          <p className="bookcontainer__price">
             <small>$</small>
-            <strong>{price}</strong>
+            {price}
           </p>
-          <p>{description}</p>
-          <div className="product__rating">
-            {/* {Array(rating)
-            .fill()
-            .map((_, i) => (
-              <p>
-                <StarIcon />
-              </p>
-            ))} */}
-          </div>
         </div>
-        <img className="product__image" src={image} alt="" />
+
+        <button className="bookcontainer__button" onClick={addToBasket}>
+          Add To Cart
+        </button>
       </div>
     </div>
   );

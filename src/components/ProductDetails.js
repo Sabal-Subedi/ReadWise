@@ -1,6 +1,5 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { IoBagAddSharp } from "react-icons/io5";
 
 function ProductDetails({ basketItem, setBasketItem }) {
   const location = useLocation();
@@ -19,10 +18,10 @@ function ProductDetails({ basketItem, setBasketItem }) {
   console.log(location.state.description);
 
   return (
-    <div className="productdetails">
-      <div className="product__info">
+    <div className="productdetailsdetails">
+      <div className="productdetails__info">
         <p>{location.state.title}</p>
-        <p className="product__price">
+        <p className="productdetails__price">
           <small>$</small>
           <strong>{location.state.price}</strong>
         </p>
@@ -30,7 +29,7 @@ function ProductDetails({ basketItem, setBasketItem }) {
         <p>{location.state.page}</p>
         <p>{location.state.genre}</p>
         <p>{location.state.description}</p>
-        <div className="product__rating">
+        <div className="productdetails__rating">
           {/* {Array(location.state.rating)
             .fill()
             .map((_, i) => (
@@ -40,10 +39,12 @@ function ProductDetails({ basketItem, setBasketItem }) {
             ))} */}
         </div>
       </div>
-      <img className="product__image" src={location.state.image} alt="" />
-      <button onClick={addToBasket}>
-        Add To Cart <IoBagAddSharp size={15} />
-      </button>
+      <img
+        className="productdetails__image"
+        src={location.state.image}
+        alt=""
+      />
+      <button onClick={addToBasket}>Add To Cart</button>
     </div>
   );
 }

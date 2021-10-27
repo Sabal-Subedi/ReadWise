@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../css/Login.css";
-import login from "../images/login.png";
+// import login from "../images/login.png";
 
 function LoginPage() {
   const [name, setName] = useState("");
@@ -12,54 +12,56 @@ function LoginPage() {
   const signInHandler = (e) => {
     e.preventDefault();
 
-    fetch("/loginuser", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((message) => {
-        console.log(message);
-      });
+    // fetch("/loginuser", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: password,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((message) => {
+    //     console.log(message);
+    //   });
 
-    // history.push("/");
+    history.push("/");
   };
 
   return (
-    <div className="login">
-      <Link to="/">
-        <img className="login__logo" src={login} alt="" />
-      </Link>
-      <div className="login__container">
-        <h1>Sign in</h1>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <div class="fadeIn first">
+          <h1>Login</h1>
+        </div>
 
         <form onSubmit={signInHandler}>
-          <h5>E-mail</h5>
           <input
             type="text"
+            id="login"
+            class="login__input"
+            name="login"
+            placeholder="E-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            //required
-          />
-
-          <h5>Password</h5>
+          ></input>
           <input
             type="password"
+            id="password"
+            class="login__input"
+            name="login"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <button className="login__signInButton" type="submit">
-            Sign in
-          </button>
+          ></input>
+          <input type="submit" class="fadeIn fourth" value="Log In"></input>
         </form>
+        <Link to="/register">
+          <button type="button" class="reg">
+            Register
+          </button>
+        </Link>
       </div>
-      <Link to="/register">
-        <button className="login__registerButton">Register</button>
-      </Link>
     </div>
   );
 }

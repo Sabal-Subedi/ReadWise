@@ -7,12 +7,27 @@ function HomeComponent({ bookList, basketItem, setBasketItem }) {
     <div className="homeContainer">
       {bookList ? (
         <div className="homeElement">
-          <h1>LIST OF BOOK </h1>
+          <div className="homecomp__group">Best Selling:</div>
           {bookList.map((book) => (
             <BookContainer
               id={book["id"]}
               author={book["author"]}
               description={book["description"]}
+              title={book["title"]}
+              page={book["page"]}
+              genre={book["genre"]}
+              image={book["image_url"]}
+              rating={book["rating"]}
+              price={book["price"]}
+              setBasketItem={setBasketItem}
+              basketItem={basketItem}
+            />
+          ))}
+          <div className="homecomp__group">Best rated:</div>
+          {bookList.map((book) => (
+            <BookContainer
+              id={book["8"]}
+              author={book["author"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
