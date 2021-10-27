@@ -47,16 +47,18 @@ function BookContainer({
   };
 
   return (
-    <div className="bookcontainer" onClick={bookDetailHandler}>
+    <div className="bookcontainer">
       <div className="card">
-        <img className="bookcontiner__image" src={image} alt="" />
-        <div className="bookcontainer__title">
+        <img
+          className="bookcontiner__image"
+          src={image}
+          alt=""
+          onClick={bookDetailHandler}
+        />
+        <div className="bookcontainer__title" onClick={bookDetailHandler}>
           <p>{title}</p>
 
-          <p className="bookcontainer__price">
-            <small>$</small>
-            {price}
-          </p>
+          <p className="bookcontainer__price">NRP. {price}</p>
         </div>
 
         <button className="bookcontainer__button" onClick={addToBasket}>
