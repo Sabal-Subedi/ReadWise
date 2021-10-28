@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../css/Login.css";
-// import login from "../images/login.png";
 
 function LoginPage() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -12,20 +10,24 @@ function LoginPage() {
   const signInHandler = (e) => {
     e.preventDefault();
 
-    // fetch("/loginuser", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: password,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((message) => {
-    //     console.log(message);
-    //   });
-
-    history.push("/");
+    fetch("/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    }).then((res) => {
+      res.json().then((r) => {
+        if (res.status === 200) {
+          localStorage.setItem("userToken", r["access_token"]);
+          console.log(r["access_token"]);
+          history.push("/");
+        } else {
+          alert(r["errmsg"]);
+        }
+      });
+    });
   };
 
   return (

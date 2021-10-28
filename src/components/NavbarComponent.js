@@ -2,9 +2,46 @@ import "../css/NavbarComponent.css";
 import { BiSearch } from "react-icons/bi";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const NavBarComponent = ({ basketItem, setBasketItem }) => {
-  const authenticateHandler = () => {};
+  const [username, setUsername] = useState("");
+
+  const authenticateHandler = (e) => {
+    const userToken = localStorage.getItem("userToken");
+    fetch("/auth/logout", {
+      method: "GET",
+      headers: { Authorization: "Bearer " + userToken },
+    })
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setUsername();
+      });
+    localStorage.removeItem("userToken");
+    console.log(localStorage.getItem("userToken"));
+  };
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    if (userToken) {
+      fetch("/auth/getcurrentuser", {
+        method: "GET",
+        headers: { Authorization: "Bearer " + userToken },
+      })
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setUsername(data["username"]);
+        });
+    }
+  }, []);
 
   return (
     <div className="navbar">
@@ -30,15 +67,13 @@ const NavBarComponent = ({ basketItem, setBasketItem }) => {
       </div>
 
       <div className="navbar__nav">
-        <Link to="/login" className="link">
+        <Link to={!username && "/login"} className="link">
           <div onClick={authenticateHandler} className="navbar__option">
             <span className="navbar__optionLineOne">
-              Hello Guest
-              {/* Hello {user ? user.email : "Guest"} */}
+              Hello {username ? username : "Guest"}
             </span>
             <span className="navbar__optionLineTwo">
-              Sign In
-              {/* {user ? "Sign Out" : "Sign In"} */}
+              {username ? "Sign Out" : "Sign In"}
             </span>
           </div>
         </Link>

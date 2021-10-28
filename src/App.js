@@ -9,11 +9,21 @@ import RegistrationPage from "./components/RegistrationPage";
 // import SearchBooks from "./components/SearchBooks";
 
 function App() {
-  const [bookList, setBookList] = useState(null);
+  const [topList, setTopList] = useState(null);
+  const [popularList, setPopularList] = useState(null);
+  const [fictionList, setFictionList] = useState(null);
+  const [romanceList, setRomanceList] = useState(null);
+  const [horrorList, setHorrorList] = useState(null);
+  const [mysteryList, setMysteryList] = useState(null);
+  const [scifiList, setScifiList] = useState(null);
+  const [thrillerList, setThrillerList] = useState(null);
+  const [userToken, setUserToken] = useState(null);
+
   const [basketItem, setBasketItem] = useState([]);
 
   useEffect(() => {
-    fetch("/getbooklist")
+    setUserToken(localStorage.getItem("userToken"));
+    fetch("/books/gettopbooks?count=6")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -21,15 +31,87 @@ function App() {
       .then((data) => {
         console.log(data);
         const result = Object.values(data);
-        // console.log(result);
-        // result.map((re) => console.log(re));
-        setBookList(result);
+        setTopList(result);
+      });
 
-        // setBookList(data);
+    fetch("/books/getmostpopular?count=6")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setPopularList(result);
+      });
+
+    fetch("/books/gettopfiction?count=6")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setFictionList(result);
+      });
+
+    fetch("/books/gettopromance?count=6")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setRomanceList(result);
+      });
+
+    fetch("/books/gettophorror?count=6")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setHorrorList(result);
+      });
+
+    fetch("/books/gettopmystery?count=6")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setMysteryList(result);
+      });
+
+    fetch("/books/gettopthriller?count=6")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setThrillerList(result);
+      });
+
+    fetch("/books/gettopscifi?count=6")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setScifiList(result);
       });
   }, []);
 
-  console.log(bookList);
   return (
     <div className="App">
       <Router>
@@ -41,6 +123,8 @@ function App() {
             <NavBarComponent
               basketItem={basketItem}
               setBasketItem={setBasketItem}
+              userToken={userToken}
+              setUserToken={setUserToken}
             />
             <CartContainer
               basketItem={basketItem}
@@ -51,6 +135,8 @@ function App() {
             <NavBarComponent
               basketItem={basketItem}
               setBasketItem={setBasketItem}
+              userToken={userToken}
+              setUserToken={setUserToken}
             />
             <ProductDetails
               basketItem={basketItem}
@@ -64,9 +150,18 @@ function App() {
             <NavBarComponent
               basketItem={basketItem}
               setBasketItem={setBasketItem}
+              userToken={userToken}
+              setUserToken={setUserToken}
             />
             <HomeComponent
-              bookList={bookList}
+              topList={topList}
+              popularList={popularList}
+              romanceList={romanceList}
+              horrorList={horrorList}
+              thrillerList={thrillerList}
+              scifiList={scifiList}
+              fictionList={fictionList}
+              mysteryList={mysteryList}
               basketItem={basketItem}
               setBasketItem={setBasketItem}
             />
