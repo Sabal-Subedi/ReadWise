@@ -1,23 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../css/ProductDetails.css";
+import { BiChevronLeftCircle, BiChevronRightCircle } from "react-icons/bi";
 
 function ProductDetails({ basketItem, setBasketItem }) {
   const location = useLocation();
+  const [count, setCount] = useState(0);
+  const [volume, setVolume] = useState(1);
+
+  useEffect(() => {
+    const index = basketItem.findIndex(
+      (book) => book.title === location.state.title
+    );
+    if (index >= 0) {
+      const num = basketItem[index].quantity;
+      num ? setCount(num) : setCount(0);
+      num ? setVolume(count) : setVolume(1);
+    }
+    console.log(count);
+  }, [basketItem, count]);
 
   const addToBasket = (e) => {
     e.preventDefault();
-    setBasketItem([
-      ...basketItem,
-      {
-        id: location.state.id,
-        title: location.state.title,
-        price: location.state.price,
-        image: location.state.image,
-      },
-    ]);
+    if (volume) {
+      const index = basketItem.findIndex(
+        (book) => book.title === location.state.title
+      );
+
+      if (index >= 0) {
+        const num = basketItem[index].quantity;
+        console.log(num);
+        basketItem.splice(index, 1);
+        setBasketItem([
+          ...basketItem,
+          {
+            id: location.state.id,
+            title: location.state.title,
+            price: location.state.price,
+            image: location.state.image,
+            quantity: num + volume,
+          },
+        ]);
+      } else {
+        setBasketItem([
+          ...basketItem,
+          {
+            id: location.state.id,
+            title: location.state.title,
+            price: location.state.price,
+            image: location.state.image,
+            quantity: volume,
+          },
+        ]);
+      }
+    } else {
+      console.log("Please add Quantity");
+    }
   };
 
+  console.log(basketItem);
+
+  const volumeincreaseHandler = (e) => {
+    e.preventDefault();
+    setVolume(volume + 1);
+  };
+
+  const volumedecreaseHandler = (e) => {
+    e.preventDefault();
+
+    volume ? setVolume(volume - 1) : setVolume(0);
+  };
   return (
     <div className="productdetailswrapper">
       <div className="productdetails__infoimage">
@@ -45,7 +97,25 @@ function ProductDetails({ basketItem, setBasketItem }) {
       <div className="productdetails__infobutton">
         <div className="productdetails__infobuttonbox">
           <div className="productdetails__infoprice">
-            NRP. {location.state.price}
+            NRP. {location.state.price * volume}
+          </div>
+          <div className="productdetails__infoquantity">
+            <div className="productdetails__icon">
+              <BiChevronLeftCircle
+                size={25}
+                className="productdetails__icon"
+                onClick={volumedecreaseHandler}
+              />
+            </div>
+            <input
+              type="text"
+              className="productdetails__inputquantity"
+              value={volume}
+              onChange={(e) => setVolume(e.target.value)}
+            />
+            <div className="productdetails__icon">
+              <BiChevronRightCircle size={25} onClick={volumeincreaseHandler} />
+            </div>
           </div>
           <button className="productdetails__cartbutton" onClick={addToBasket}>
             Add To Cart

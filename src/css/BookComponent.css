@@ -28,6 +28,11 @@
   /* margin-left: 1em; */
 }
 
+.bookcontainer__button:hover {
+  color: red;
+  cursor: pointer;
+}
+
 .bookcontiner__image {
   height: 95%;
   width: 100%;

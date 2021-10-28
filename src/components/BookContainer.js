@@ -19,16 +19,37 @@ function BookContainer({
 
   const addToBasket = (e) => {
     e.preventDefault();
-    setBasketItem([
-      ...basketItem,
-      {
-        id: id,
-        title: title,
-        price: price,
-        image: image,
-      },
-    ]);
+
+    const index = basketItem.findIndex((book) => book.title === title);
+
+    if (index >= 0) {
+      const count = basketItem[index].quantity;
+      console.log(count);
+      basketItem.splice(index, 1);
+      setBasketItem([
+        ...basketItem,
+        {
+          id: id,
+          title: title,
+          price: price,
+          image: image,
+          quantity: count + 1,
+        },
+      ]);
+    } else {
+      setBasketItem([
+        ...basketItem,
+        {
+          id: id,
+          title: title,
+          price: price,
+          image: image,
+          quantity: 1,
+        },
+      ]);
+    }
   };
+
   console.log(basketItem);
 
   const bookDetailHandler = (e) => {
