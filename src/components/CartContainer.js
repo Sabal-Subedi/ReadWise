@@ -15,6 +15,7 @@ function CartContainer({ basketItem, setBasketItem }) {
               <img className="cart__image" src={book["image"]} alt="" />
               <p>{book["title"]}</p>
               <p>{book["price"]}</p>
+              <p>Quantity: {book["quantity"]}</p>
             </div>
           ))}
         </div>

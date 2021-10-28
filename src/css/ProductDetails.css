@@ -63,6 +63,10 @@
   border-radius: 0.2em;
   margin-left: -1.2em;
 }
+.productdetails__cartbutton:hover {
+  color: red;
+  cursor: pointer;
+}
 .productdetails__infobuttonbox {
   margin-top: 3em;
   border: 1px solid #949294;
@@ -79,4 +83,26 @@
   font-size: 1.3em;
   font-weight: 300;
   margin-left: 1.4em;
+}
+
+.productdetails__infoquantity {
+  display: flex;
+  justify-content: center;
+  margin-top: -0.5em;
+  margin-bottom: 2em;
+  margin-left: -2.5em;
+}
+.productdetails__icon :hover {
+  cursor: pointer;
+  color: red;
+}
+
+.productdetails__inputquantity {
+  width: 3em;
+  height: 1.5em;
+  border: none;
+  box-shadow: 2px 2px 2px 2px #888888;
+  margin-left: 0.8em;
+  margin-right: 0.8em;
+  text-align: center;
 }

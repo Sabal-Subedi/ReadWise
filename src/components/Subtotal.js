@@ -18,7 +18,10 @@ function Subtotal({ basketItem }) {
           </>
         )}
         decimalScale={2}
-        value={basketItem?.reduce((amount, item) => item.price + amount, 0)}
+        value={basketItem?.reduce(
+          (amount, item) => item.price * item.quantity + amount,
+          0
+        )}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"NPR "}
