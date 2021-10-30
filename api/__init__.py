@@ -7,7 +7,7 @@ import pandas as pd
 
 db= SQLAlchemy() #creating an instance of the SQLAlchemy
 DB_NAME = "database.db"
-store_data_uncleaned = pd.read_csv('Dataset.csv', low_memory=False).drop_duplicates(subset="title", keep= "first")
+store_data_uncleaned = pd.read_csv('./api/Dataset.csv', low_memory=False).drop_duplicates(subset="title", keep= "first")
 
 def create_app():
     app = Flask(__name__)
