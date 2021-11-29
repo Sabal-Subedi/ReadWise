@@ -51,7 +51,7 @@ function HomeComponent({
           </div>
           {popularList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["id"]}
               author={book["author"]}
               title={book["title"]}
               page={book["page"]}
@@ -70,7 +70,7 @@ function HomeComponent({
           </div>
           {romanceList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["id"]}
               author={book["author"]}
               title={book["title"]}
               page={book["page"]}
@@ -89,7 +89,7 @@ function HomeComponent({
           </div>
           {horrorList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["id"]}
               author={book["author"]}
               title={book["title"]}
               page={book["page"]}
@@ -108,7 +108,7 @@ function HomeComponent({
           </div>
           {thrillerList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["id"]}
               author={book["author"]}
               title={book["title"]}
               page={book["page"]}
@@ -127,7 +127,7 @@ function HomeComponent({
           </div>
           {scifiList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["id"]}
               author={book["author"]}
               title={book["title"]}
               page={book["page"]}
@@ -146,7 +146,7 @@ function HomeComponent({
           </div>
           {fictionList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["id"]}
               author={book["author"]}
               title={book["title"]}
               page={book["page"]}
@@ -165,7 +165,7 @@ function HomeComponent({
           </div>
           {mysteryList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["id"]}
               author={book["author"]}
               title={book["title"]}
               page={book["page"]}

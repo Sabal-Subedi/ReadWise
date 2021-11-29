@@ -18,10 +18,12 @@ function ProductDetails({ basketItem, setBasketItem }) {
       num ? setVolume(count) : setVolume(1);
     }
     console.log(count);
+    console.log(location.state.description);
   }, [basketItem, count]);
 
   const addToBasket = (e) => {
     e.preventDefault();
+
     if (volume) {
       const index = basketItem.findIndex(
         (book) => book.title === location.state.title
