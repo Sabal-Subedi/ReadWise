@@ -82,9 +82,9 @@ function BookContainer({
           <p className="bookcontainer__price">NRP. {price}</p>
         </div>
 
-        <button className="bookcontainer__button" onClick={addToBasket}>
+        {/* <button className="bookcontainer__button" onClick={addToBasket}>
           Add To Cart
-        </button>
+        </button> */}
       </div>
     </div>
   );

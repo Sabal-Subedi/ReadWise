@@ -5,62 +5,32 @@ import { BiChevronLeftCircle, BiChevronRightCircle } from "react-icons/bi";
 
 function ProductDetails({ basketItem, setBasketItem }) {
   const location = useLocation();
-  const [count, setCount] = useState(0);
   const [volume, setVolume] = useState(1);
-
-  useEffect(() => {
-    const index = basketItem.findIndex(
-      (book) => book.title === location.state.title
-    );
-    if (index >= 0) {
-      const num = basketItem[index].quantity;
-      num ? setCount(num) : setCount(0);
-      num ? setVolume(count) : setVolume(1);
-    }
-    console.log(count);
-    console.log(location.state.description);
-  }, [basketItem, count]);
 
   const addToBasket = (e) => {
     e.preventDefault();
+    const userToken = localStorage.getItem("userToken");
 
-    if (volume) {
-      const index = basketItem.findIndex(
-        (book) => book.title === location.state.title
-      );
-
-      if (index >= 0) {
-        const num = basketItem[index].quantity;
-        console.log(num);
-        basketItem.splice(index, 1);
-        setBasketItem([
-          ...basketItem,
-          {
-            id: location.state.id,
-            title: location.state.title,
-            price: location.state.price,
-            image: location.state.image,
-            quantity: num + volume,
-          },
-        ]);
-      } else {
-        setBasketItem([
-          ...basketItem,
-          {
-            id: location.state.id,
-            title: location.state.title,
-            price: location.state.price,
-            image: location.state.image,
-            quantity: volume,
-          },
-        ]);
-      }
-    } else {
-      console.log("Please add Quantity");
-    }
+    fetch("/profile/addtocart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userToken,
+      },
+      body: JSON.stringify({
+        isbn: location.state.id,
+        count: volume,
+      }),
+    }).then((res) => {
+      res.json().then((r) => {
+        if (res.status === 200) {
+          setVolume(1);
+        } else {
+          alert(r["errmsg"]);
+        }
+      });
+    });
   };
-
-  console.log(basketItem);
 
   const volumeincreaseHandler = (e) => {
     e.preventDefault();

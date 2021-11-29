@@ -31,7 +31,7 @@ function HomeComponent({
           </div>
           {topList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
               description={book["description"]}
               title={book["title"]}
@@ -51,8 +51,9 @@ function HomeComponent({
           </div>
           {popularList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
@@ -70,8 +71,9 @@ function HomeComponent({
           </div>
           {romanceList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
@@ -89,8 +91,9 @@ function HomeComponent({
           </div>
           {horrorList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
@@ -108,8 +111,9 @@ function HomeComponent({
           </div>
           {thrillerList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
@@ -127,8 +131,9 @@ function HomeComponent({
           </div>
           {scifiList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
@@ -146,8 +151,9 @@ function HomeComponent({
           </div>
           {fictionList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
@@ -165,8 +171,9 @@ function HomeComponent({
           </div>
           {mysteryList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}

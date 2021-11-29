@@ -1,9 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 
-function Subtotal({ basketItem }) {
+function Subtotal() {
+  const [cartItem, setCartItem] = useState(null);
   const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    fetch("/profile/cart", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + userToken,
+      },
+    }).then((res) => {
+      res.json().then((r) => {
+        if (res.status === 200) {
+          console.log(res);
+          console.log(r);
+          const result = Object.values(r);
+          console.log(result);
+          setCartItem(result);
+        } else {
+          alert(r["errmsg"]);
+        }
+      });
+    });
+  }, []);
+
   const handleChange = (e) => {
     e.preventDefault();
     setChecked(!checked);
@@ -14,7 +38,7 @@ function Subtotal({ basketItem }) {
         renderText={(value) => (
           <>
             <p>
-              Total ({basketItem?.length} items): <strong>{value}</strong>
+              Total ({cartItem?.length} items): <strong>{value}</strong>
             </p>
             <div className="subtotal__gift" onClick={handleChange}>
               {checked ? (
@@ -31,12 +55,12 @@ function Subtotal({ basketItem }) {
         decimalScale={2}
         value={
           checked
-            ? basketItem?.reduce(
-                (amount, item) => item.price * item.quantity + amount,
+            ? cartItem?.reduce(
+                (amount, item) => item.price * item.count + amount,
                 15
               )
-            : basketItem?.reduce(
-                (amount, item) => item.price * item.quantity + amount,
+            : cartItem?.reduce(
+                (amount, item) => item.price * item.count + amount,
                 0
               )
         }
