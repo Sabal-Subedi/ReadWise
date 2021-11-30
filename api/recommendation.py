@@ -27,6 +27,10 @@ def get_important_features(data):
 @recommendation.route('/getrecommendation', methods=["POST"])
 def getrecommendation():
     try:
+        count = request.get_json().get('count')
+        title = request.get_json().get('title')
+
+        print(title)
         isbn_list = []
         recommend_list = pd.DataFrame()
         recommend_list.empty
@@ -40,7 +44,7 @@ def getrecommendation():
         # print(cs)
 
         # get the title of the book
-        title = 'The Maze Runner'
+        # title = 'The Maze Runner'
         # find the matrices
         isbn = df[df.title == title]['isbn'].values[0]
 
@@ -55,7 +59,7 @@ def getrecommendation():
             print(j+1, title)
             isbn_list.append(item[0])
             j = j+1
-            if j > 6:
+            if j >= count:
                 break
 
         for i in range(0, len(isbn_list)):

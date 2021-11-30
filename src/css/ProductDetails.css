@@ -106,3 +106,11 @@
   margin-right: 0.8em;
   text-align: center;
 }
+
+.productdetail__recommendation {
+  margin-top: 2em;
+  display: inline-flex;
+  /* border: 3px solid blue; */
+  background-color: #eee;
+  width: 12em;
+}

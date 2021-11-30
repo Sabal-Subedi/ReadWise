@@ -50,8 +50,6 @@ function BookContainer({
     }
   };
 
-  console.log(basketItem);
-
   const bookDetailHandler = (e) => {
     e.preventDefault();
     history.push("/productdetails", {
