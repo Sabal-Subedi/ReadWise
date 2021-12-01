@@ -4,7 +4,7 @@ import "../css/ProductDetails.css";
 import { BiChevronLeftCircle, BiChevronRightCircle } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 
-function ProductDetails({ basketItem, setBasketItem }) {
+function ProductDetails() {
   const location = useLocation();
   const history = useHistory();
   const [volume, setVolume] = useState(1);
@@ -42,17 +42,6 @@ function ProductDetails({ basketItem, setBasketItem }) {
 
   const bookDetailHandler = (book) => (e) => {
     e.preventDefault();
-    // history.push("/productdetails", {
-    //   id: book["isbn"],
-    //   author: book["author"],
-    //   title: book["title"],
-    //   page: book["page"],
-    //   genre: book["genre"],
-    //   image: book["image_url"],
-    //   description: book["description"],
-    //   rating: book["rating"],
-    //   price: book["price"],
-    // });
     setId(book["isbn"]);
     setAuthor(book["author"]);
     setTitle(book["title"]);

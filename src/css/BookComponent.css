@@ -1,5 +1,5 @@
 .bookcontainer {
-  margin-top: 2em;
+  margin-top: -1.5em;
   display: inline-flex;
   /* border: 3px solid blue; */
   background-color: #eee;
@@ -10,7 +10,7 @@
   height: 17em;
   width: 10em;
   margin-right: 3em;
-  margin-bottom: 7em;
+  margin-bottom: 1em;
   padding: 1em 1em 1em 1em;
 
   /* border: 2px solid red; */

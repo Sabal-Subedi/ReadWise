@@ -1,11 +1,37 @@
 import "../css/NavbarComponent.css";
 import { BiSearch } from "react-icons/bi";
 import { IoBagHandleSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const NavBarComponent = ({ basketItem, setBasketItem }) => {
+const NavBarComponent = () => {
   const [username, setUsername] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+
+  const [searchTitle, setSearchTitle] = useState("");
+  const history = useHistory();
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    fetch("recommendation/search?title=" + searchTitle)
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = data ? Object.values(data) : null;
+        setSearchResult(result);
+        console.log(result);
+        console.log(searchResult);
+      });
+    setSearchTitle("");
+    console.log(searchResult);
+    history.push("/searchresult", {
+      searchResult: searchResult,
+      searchTitle: searchTitle,
+    });
+  };
 
   const authenticateHandler = (e) => {
     const userToken = localStorage.getItem("userToken");
@@ -49,7 +75,7 @@ const NavBarComponent = ({ basketItem, setBasketItem }) => {
         <div className="navbar__intro">
           <img
             className="navbar__logo"
-            src="https://cdn.iconscout.com/icon/premium/png-256-thumb/books-2783553-2315348.png"
+            src="https://svgsilh.com/svg/1294676.svg"
             alt=""
           />
           <span className="navbar__title">TITLE </span>
@@ -57,13 +83,20 @@ const NavBarComponent = ({ basketItem, setBasketItem }) => {
       </Link>
       <div className="navbar__serach">
         <div className="navbar__searchInput">
-          <input
-            className="navbarsearch__field"
-            type="text"
-            placeholder="Search"
-          />
+          <form onSubmit={searchHandler}>
+            <input
+              className="navbarsearch__field"
+              type="text"
+              placeholder="Search"
+              value={searchTitle}
+              onChange={(e) => setSearchTitle(e.target.value)}
+            />
+          </form>
         </div>
-        <BiSearch className="navbar__searchIcon"></BiSearch>
+        <BiSearch
+          className="navbar__searchIcon"
+          onClick={searchHandler}
+        ></BiSearch>
       </div>
 
       <div className="navbar__nav">
@@ -78,11 +111,10 @@ const NavBarComponent = ({ basketItem, setBasketItem }) => {
           </div>
         </Link>
 
-        {/* <Link to={basketItem.length && "/checkout"} className="link"> */}
         <Link to="/checkout" className="link">
           <div className="navbar__optionBasket">
             <IoBagHandleSharp className="basket__logo" size={30} />
-            <span className="navbar__basketCount">{basketItem?.length}</span>
+            <span className="navbar__basketCount">0</span>
           </div>
         </Link>
       </div>

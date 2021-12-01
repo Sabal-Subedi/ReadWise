@@ -1,18 +1,19 @@
+from __init__ import store_data_cleaned as store_data
 import pandas as pd
 import numpy as np
 from flask import json, jsonify
 from flask import json, jsonify, Blueprint, request
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-
+from __init__ import store_data_cleaned as df
 
 # blueprint basically tells that this file is part of the app
 recommendation = Blueprint('recommendation', __name__)
 # it helps in modularizing our app so that all code is not in a single file
 
 
-df = pd.read_csv('./api/Dataset.csv', error_bad_lines=False)
-df['isbn'] = range(0, 9635)  # yo 9635 vnya xai number of available data
+# df = pd.read_csv('./api/DatasetCleaned.csv', error_bad_lines=False)
+df['id'] = range(0, 1152)  # yo 9635 vnya xai number of available data
 df.head(3)
 
 
@@ -46,16 +47,16 @@ def getrecommendation():
         # get the title of the book
         # title = 'The Maze Runner'
         # find the matrices
-        isbn = df[df.title == title]['isbn'].values[0]
+        isbn = df[df.title == title]['id'].values[0]
 
         scores = list(enumerate(cs[isbn]))
         sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
         sorted_scores = sorted_scores[1:]
 
         j = 0
-        print('the 7 most similar to', title, 'are:\n')
+        print('the most similar to', title, 'are:\n')
         for item in sorted_scores:
-            title = df[df.isbn == item[0]]['title'].values[0]
+            title = df[df.id == item[0]]['title'].values[0]
             print(j+1, title)
             isbn_list.append(item[0])
             j = j+1
@@ -64,7 +65,7 @@ def getrecommendation():
 
         for i in range(0, len(isbn_list)):
             recommend_list = recommend_list.append(
-                df[df["isbn"] == isbn_list[i]])
+                df[df["id"] == isbn_list[i]])
 
         print(recommend_list)
 
@@ -76,4 +77,17 @@ def getrecommendation():
                        errmsg=str(e)), 500
 
 
-# getrecommendation()
+@recommendation.route('/search', methods=["GET"])
+def search():
+    try:
+        query = request.args.get('title')
+        print(query)
+        result = store_data[store_data["title"].str.contains(
+            query, case=False)].head(10)
+        print(result)
+        if(not result.empty):
+            return result.to_json(orient='index'), 200
+        return jsonify(None), 500
+    except Exception as e:
+        print(str(e))
+        return jsonify(msg="Error occured", errmsg=str(e)), 400

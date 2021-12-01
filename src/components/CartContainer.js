@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Subtotal from "./Subtotal";
 import "../css/CartContainer.css";
-function CartContainer({ basketItem, setBasketItem }) {
+
+function CartContainer() {
   const [cartItem, setCartItem] = useState(null);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
@@ -16,15 +18,15 @@ function CartContainer({ basketItem, setBasketItem }) {
         if (res.status === 200) {
           console.log(res);
           console.log(r);
-          const result = Object.values(r);
+          const result = r ? Object.values(r) : null;
           console.log(result);
           setCartItem(result);
         } else {
-          alert(r["errmsg"]);
+          console.log(r["errmsg"]);
         }
       });
     });
-  }, []);
+  }, [reload]);
 
   const removefrombasket = (isbn) => (e) => {
     e.preventDefault();
@@ -43,11 +45,13 @@ function CartContainer({ basketItem, setBasketItem }) {
       res.json().then((r) => {
         if (res.status === 200) {
           console.log("successfull");
+          setCartItem(null);
         } else {
-          alert(r["errmsg"]);
+          console.log(r["errmsg"]);
         }
       });
     });
+    setReload(!reload);
   };
 
   return (
@@ -84,7 +88,7 @@ function CartContainer({ basketItem, setBasketItem }) {
         </div>
       </div>
       <div className="cartcontainer__right">
-        <Subtotal basketItem={basketItem} />
+        <Subtotal reload={reload} setReload={setReload} />
       </div>
     </div>
   );

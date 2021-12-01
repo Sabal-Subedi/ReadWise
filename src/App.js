@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CartContainer from "./components/CartContainer";
+import Footer from "./components/Footer";
 import HomeComponent from "./components/HomeComponent";
 import LoginPage from "./components/LoginPage";
 import NavBarComponent from "./components/NavbarComponent";
 import ProductDetails from "./components/ProductDetails";
 import RegistrationPage from "./components/RegistrationPage";
+import SearchResult from "./components/SearchResult";
 // import SearchBooks from "./components/SearchBooks";
 
 function App() {
@@ -18,8 +20,6 @@ function App() {
   const [scifiList, setScifiList] = useState(null);
   const [thrillerList, setThrillerList] = useState(null);
   const [userToken, setUserToken] = useState(null);
-
-  const [basketItem, setBasketItem] = useState([]);
 
   useEffect(() => {
     setUserToken(localStorage.getItem("userToken"));
@@ -121,35 +121,33 @@ function App() {
           </Route>
           <Route path="/checkout">
             <NavBarComponent
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
               userToken={userToken}
               setUserToken={setUserToken}
             />
-            <CartContainer
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
-            />
+            <CartContainer />
+            <Footer />
           </Route>
           <Route path="/productdetails">
             <NavBarComponent
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
               userToken={userToken}
               setUserToken={setUserToken}
             />
-            <ProductDetails
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
+            <ProductDetails />
+            <Footer />
+          </Route>
+          <Route path="/searchresult">
+            <NavBarComponent
+              userToken={userToken}
+              setUserToken={setUserToken}
             />
+            <SearchResult />
+            <Footer />
           </Route>
           <Route path="/register">
             <RegistrationPage />
           </Route>
           <Route path="/">
             <NavBarComponent
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
               userToken={userToken}
               setUserToken={setUserToken}
             />
@@ -162,9 +160,8 @@ function App() {
               scifiList={scifiList}
               fictionList={fictionList}
               mysteryList={mysteryList}
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
             />
+            <Footer />
           </Route>
         </Switch>
       </Router>

@@ -7,8 +7,8 @@ import pandas as pd
 
 db = SQLAlchemy()  # creating an instance of the SQLAlchemy
 DB_NAME = "database.db"
-store_data_uncleaned = pd.read_csv(
-    './api/Dataset.csv', low_memory=False).dropna().drop_duplicates(subset="title", keep="first")
+store_data_cleaned = pd.read_csv(
+    './api/DatasetCleaned.csv', low_memory=False)
 
 
 def create_app():
