@@ -46,12 +46,12 @@ function CartContainer() {
         if (res.status === 200) {
           console.log("successfull");
           setCartItem(null);
+          setReload(!reload);
         } else {
           console.log(r["errmsg"]);
         }
       });
     });
-    setReload(!reload);
   };
 
   return (

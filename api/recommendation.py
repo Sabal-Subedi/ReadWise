@@ -1,7 +1,5 @@
 from __init__ import store_data_cleaned as store_data
 import pandas as pd
-import numpy as np
-from flask import json, jsonify
 from flask import json, jsonify, Blueprint, request
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
@@ -80,6 +78,8 @@ def getrecommendation():
 @recommendation.route('/search', methods=["GET"])
 def search():
     try:
+        result = pd.DataFrame()
+        result.empty
         query = request.args.get('title')
         print(query)
         result = store_data[store_data["title"].str.contains(

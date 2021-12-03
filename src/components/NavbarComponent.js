@@ -3,15 +3,15 @@ import { BiSearch } from "react-icons/bi";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { useHistory, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import SearchResult from "./SearchResult";
 
 const NavBarComponent = () => {
   const [username, setUsername] = useState("");
-  const [searchResult, setSearchResult] = useState(null);
-
   const [searchTitle, setSearchTitle] = useState("");
   const history = useHistory();
 
   const searchHandler = (e) => {
+    let searchData = null;
     e.preventDefault();
     fetch("recommendation/search?title=" + searchTitle)
       .then((res) => {
@@ -20,17 +20,17 @@ const NavBarComponent = () => {
       })
       .then((data) => {
         console.log(data);
-        const result = data ? Object.values(data) : null;
-        setSearchResult(result);
-        console.log(result);
-        console.log(searchResult);
+        const result = Object.values(data);
+        searchData = result;
+        console.log(searchData);
+        setSearchTitle("");
+        searchData
+          ? history.push("/searchresult", {
+              searchResult: searchData,
+              searchTitle: searchTitle,
+            })
+          : console.log("empty");
       });
-    setSearchTitle("");
-    console.log(searchResult);
-    history.push("/searchresult", {
-      searchResult: searchResult,
-      searchTitle: searchTitle,
-    });
   };
 
   const authenticateHandler = (e) => {
@@ -93,10 +93,10 @@ const NavBarComponent = () => {
             />
           </form>
         </div>
-        <BiSearch
+        {/* <BiSearch
           className="navbar__searchIcon"
           onClick={searchHandler}
-        ></BiSearch>
+        ></BiSearch> */}
       </div>
 
       <div className="navbar__nav">
