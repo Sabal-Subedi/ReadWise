@@ -8,7 +8,8 @@ import NavBarComponent from "./components/NavbarComponent";
 import ProductDetails from "./components/ProductDetails";
 import RegistrationPage from "./components/RegistrationPage";
 import SearchResult from "./components/SearchResult";
-// import SearchBooks from "./components/SearchBooks";
+import PurchaseHistory from "./components/PurchaseHistory";
+import "./App.css";
 
 function App() {
   const [topList, setTopList] = useState(null);
@@ -20,10 +21,12 @@ function App() {
   const [scifiList, setScifiList] = useState(null);
   const [thrillerList, setThrillerList] = useState(null);
   const [userToken, setUserToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     setUserToken(localStorage.getItem("userToken"));
-    fetch("/books/gettopbooks?count=6")
+    fetch("/books/gettopbooks?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -34,7 +37,7 @@ function App() {
         setTopList(result);
       });
 
-    fetch("/books/getmostpopular?count=6")
+    fetch("/books/getmostpopular?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -45,7 +48,7 @@ function App() {
         setPopularList(result);
       });
 
-    fetch("/books/gettopfiction?count=6")
+    fetch("/books/gettopfiction?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -56,7 +59,7 @@ function App() {
         setFictionList(result);
       });
 
-    fetch("/books/gettopromance?count=6")
+    fetch("/books/gettopromance?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -67,7 +70,7 @@ function App() {
         setRomanceList(result);
       });
 
-    fetch("/books/gettophorror?count=6")
+    fetch("/books/gettophorror?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -78,7 +81,7 @@ function App() {
         setHorrorList(result);
       });
 
-    fetch("/books/gettopmystery?count=6")
+    fetch("/books/gettopmystery?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -89,7 +92,7 @@ function App() {
         setMysteryList(result);
       });
 
-    fetch("/books/gettopthriller?count=6")
+    fetch("/books/gettopthriller?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -100,7 +103,7 @@ function App() {
         setThrillerList(result);
       });
 
-    fetch("/books/gettopscifi?count=6")
+    fetch("/books/gettopscifi?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -109,6 +112,7 @@ function App() {
         console.log(data);
         const result = Object.values(data);
         setScifiList(result);
+        setIsLoading(false);
       });
   }, []);
 
@@ -123,22 +127,28 @@ function App() {
             <NavBarComponent
               userToken={userToken}
               setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
-            <CartContainer />
+            <CartContainer refresh={refresh} setRefresh={setRefresh} />
             <Footer />
           </Route>
           <Route path="/productdetails">
             <NavBarComponent
               userToken={userToken}
               setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
-            <ProductDetails />
+            <ProductDetails refresh={refresh} setRefresh={setRefresh} />
             <Footer />
           </Route>
           <Route path="/searchresult">
             <NavBarComponent
               userToken={userToken}
               setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
             <SearchResult />
             <Footer />
@@ -146,10 +156,22 @@ function App() {
           <Route path="/register">
             <RegistrationPage />
           </Route>
+          <Route path="/purchasehistory">
+            <NavBarComponent
+              userToken={userToken}
+              setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
+            <PurchaseHistory />
+            <Footer />
+          </Route>
           <Route path="/">
             <NavBarComponent
               userToken={userToken}
               setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
             <HomeComponent
               topList={topList}
@@ -160,6 +182,7 @@ function App() {
               scifiList={scifiList}
               fictionList={fictionList}
               mysteryList={mysteryList}
+              isLoading={isLoading}
             />
             <Footer />
           </Route>

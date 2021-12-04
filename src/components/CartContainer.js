@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Subtotal from "./Subtotal";
 import "../css/CartContainer.css";
 
-function CartContainer() {
+function CartContainer({ refresh, setRefresh }) {
   const [cartItem, setCartItem] = useState(null);
   const [reload, setReload] = useState(false);
 
@@ -47,6 +47,7 @@ function CartContainer() {
           console.log("successfull");
           setCartItem(null);
           setReload(!reload);
+          setRefresh(!refresh);
         } else {
           console.log(r["errmsg"]);
         }
@@ -77,11 +78,13 @@ function CartContainer() {
               </div>
               <div className="cart__itemsquantity">
                 Quantity:{book["count"]}
-              </div>
-              <div className="cart__itemsprice">
-                Price:{book["price"]}
-                SubTotal: {book["price"]} x {book["count"]} =
-                {parseInt(book["count"]) * parseInt(book["price"])}
+                <div className="cart__itemsprice">
+                  Price:{book["price"]}
+                  <div className="cart_subtotal">
+                    SubTotal: {book["price"]} x {book["count"]} =
+                    {parseInt(book["count"]) * parseInt(book["price"])}
+                  </div>
+                </div>
               </div>
             </div>
           ))}

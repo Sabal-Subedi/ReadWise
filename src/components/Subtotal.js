@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "../css/Subtotal.css";
 import CurrencyFormat from "react-currency-format";
+import { useHistory } from "react-router-dom";
 
 function Subtotal({ reload, setReload }) {
   const [cartItem, setCartItem] = useState(null);
   const [checked, setChecked] = useState(false);
+  const history = useHistory();
+  const checkoutHandller = (e) => {
+    e.preventDefault();
+    const userToken = localStorage.getItem("userToken");
 
+    fetch("/profile/buybook", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + userToken,
+      },
+    }).then((res) => {
+      res.json().then((r) => {
+        if (res.status === 200) {
+          alert("purchase successfull");
+          history.push("/");
+        } else {
+          alert(r["errmsg"]);
+        }
+      });
+    });
+  };
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
     fetch("/profile/cart", {
@@ -40,9 +61,9 @@ function Subtotal({ reload, setReload }) {
           <CurrencyFormat
             renderText={(value) => (
               <>
-                <p>
+                <div className="subtotal_items">
                   Total ({cartItem?.length} items): <strong>{value}</strong>
-                </p>
+                </div>
                 <div className="subtotal__gift" onClick={handleChange}>
                   {checked ? (
                     <p className="subtotal__info">+ NRS 15 for gift wrapper </p>
@@ -74,7 +95,9 @@ function Subtotal({ reload, setReload }) {
             thousandSeparator={true}
             prefix={"NPR "}
           />
-          <button className="subtotal__button">Proceed to Checkout</button>
+          <button className="subtotal__button" onClick={checkoutHandller}>
+            Proceed to Checkout
+          </button>
         </div>
       ) : (
         <div>

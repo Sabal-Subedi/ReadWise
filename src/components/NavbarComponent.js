@@ -3,13 +3,13 @@ import { BiSearch } from "react-icons/bi";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { useHistory, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import SearchResult from "./SearchResult";
+import { BiHistory } from "react-icons/bi";
 
-const NavBarComponent = () => {
+const NavBarComponent = ({ refresh, setRefresh }) => {
   const [username, setUsername] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
   const history = useHistory();
-
+  const [countCart, setCountcart] = useState(0);
   const searchHandler = (e) => {
     let searchData = null;
     e.preventDefault();
@@ -20,16 +20,14 @@ const NavBarComponent = () => {
       })
       .then((data) => {
         console.log(data);
-        const result = Object.values(data);
+        const result = data ? Object.values(data) : null;
         searchData = result;
         console.log(searchData);
         setSearchTitle("");
-        searchData
-          ? history.push("/searchresult", {
-              searchResult: searchData,
-              searchTitle: searchTitle,
-            })
-          : console.log("empty");
+        history.push("/searchresult", {
+          searchResult: searchData,
+          searchTitle: searchTitle,
+        });
       });
   };
 
@@ -66,19 +64,32 @@ const NavBarComponent = () => {
           console.log(data);
           setUsername(data["username"]);
         });
+      fetch("/profile/cart", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + userToken,
+        },
+      }).then((res) => {
+        res.json().then((r) => {
+          if (res.status === 200) {
+            console.log(res);
+            console.log(r);
+            const result = r ? Object.values(r) : null;
+            console.log(result?.length);
+            setCountcart(result?.length);
+          } else {
+            console.log(r["errmsg"]);
+          }
+        });
+      });
     }
-  }, []);
+  }, [refresh]);
 
   return (
     <div className="navbar">
       <Link to="/" className="link">
         <div className="navbar__intro">
-          <img
-            className="navbar__logo"
-            src="https://svgsilh.com/svg/1294676.svg"
-            alt=""
-          />
-          <span className="navbar__title">TITLE </span>
+          <span className="navbar__title">THE BOOKSTORE</span>
         </div>
       </Link>
       <div className="navbar__serach">
@@ -93,10 +104,10 @@ const NavBarComponent = () => {
             />
           </form>
         </div>
-        {/* <BiSearch
+        <BiSearch
           className="navbar__searchIcon"
           onClick={searchHandler}
-        ></BiSearch> */}
+        ></BiSearch>
       </div>
 
       <div className="navbar__nav">
@@ -114,7 +125,15 @@ const NavBarComponent = () => {
         <Link to="/checkout" className="link">
           <div className="navbar__optionBasket">
             <IoBagHandleSharp className="basket__logo" size={30} />
-            <span className="navbar__basketCount">0</span>
+            <span className="navbar__basketCount">
+              {countCart ? countCart : 0}
+            </span>
+          </div>
+        </Link>
+
+        <Link to={username && "/purchasehistory"} className="link">
+          <div className="navbar__optionhis">
+            <BiHistory className="history__logo" size={30} />
           </div>
         </Link>
       </div>

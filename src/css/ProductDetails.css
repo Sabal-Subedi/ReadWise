@@ -1,10 +1,12 @@
 .productdetailswrapper {
   display: flex;
-
+  background-color: black;
   height: 100%;
   width: 95%;
 }
-
+.productdetails {
+  background-color: black;
+}
 .productdetails__infoimage {
   margin: 1em 1em 1em 1em;
   padding: 0.5em 0.5em 0.5em 0.5em;
@@ -14,17 +16,16 @@
 .productdetails__image {
   width: 18em;
   height: 25em;
-  box-shadow: 5px 10px #888888;
+  box-shadow: 2px 2px #888888;
 }
 .productdetails__info {
   width: 75%;
-  background-color: #eee;
+  background-color: black;
   margin-top: 1.2em;
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-.productdetails__infobutton {
-}
+
 .productdetails__infotitle {
   font-size: 2em;
   font-weight: 500;
@@ -34,19 +35,20 @@
 .productdetails__infoauthor {
   margin-top: -0.7em;
   font-size: 1em;
+  color: white;
 }
 .productdetails__infogenre {
   margin-top: -0.7em;
   font-size: 1em;
-}
-.productdetails__synopsis {
+  color: white;
 }
 
 .productdetails__infodesc {
   font-family: serif;
   font-style: italic;
   font-size: 1.2em;
-  background-color: #eee;
+  background-color: black;
+  color: white;
 }
 .productdetails__infobutton {
   width: 15%;
@@ -74,7 +76,7 @@
   padding-top: 6em;
   height: 11em;
   width: 12em;
-  box-shadow: 5px 10px #888888;
+  box-shadow: 2px 2px #888888;
 }
 
 .productdetails__infoprice {
@@ -106,11 +108,37 @@
   margin-right: 0.8em;
   text-align: center;
 }
-
 .productdetail__recommendation {
+  display: flex;
+  padding: 1em 1em 1em 1em;
+  margin-left: 1em;
+  margin-top: 4em;
+}
+.productdetail__recommendationcard {
+  justify-content: space-between;
+  margin-left: 1.4em;
+  margin-right: 2em;
+  margin-bottom: 2em;
+}
+.productdetails__synopsis {
+  color: white;
+}
+.productdetails__infotitle {
+  color: white;
+}
+.productdetails_recomtitle {
+  color: white;
   margin-top: 2em;
-  display: inline-flex;
-  /* border: 3px solid blue; */
-  background-color: #eee;
+  margin-left: 20em;
+  font-size: 24px;
+}
+.productdetails__infoprice {
+  color: white;
+}
+.productdetails__icon {
+  color: white;
+}
+.recomm__image {
+  height: 14em;
   width: 12em;
 }

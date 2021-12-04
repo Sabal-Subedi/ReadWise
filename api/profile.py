@@ -1,5 +1,6 @@
 from flask import json, jsonify, Blueprint, request
 from flask_login import current_user, login_required
+from sqlalchemy import func
 from sqlalchemy.orm import session
 import pandas as pd
 
@@ -16,7 +17,7 @@ profile = Blueprint('profile', __name__)
 
 @profile.route('/addtocart', methods=["POST"])
 @login_required
-# @jwt_required()
+@jwt_required()
 def addToCart():
     try:
         bookisbn_ = request.get_json().get('isbn')
@@ -44,7 +45,7 @@ def addToCart():
 
 @profile.route('/removefromcart', methods=["POST"])
 @login_required
-# @jwt_required()
+@jwt_required()
 def removefromcart():
     try:
         bookisbn_ = request.get_json().get('isbn')
@@ -64,7 +65,7 @@ def removefromcart():
 
 @profile.route('/cart', methods=["GET"])
 @login_required
-# @jwt_required()
+@jwt_required()
 def getCart():
     try:
         cartdf = pd.DataFrame()
@@ -91,29 +92,35 @@ def getCart():
 
 @profile.route('/cartcount', methods=["GET"])
 @login_required
-# @jwt_required()
+@jwt_required()
 def getCartCount():
     cartCount = CartItem.query.filter_by(user_id=current_user.id).count()
     return jsonify(count=cartCount), 200
 
 
-@profile.route('/buybook', methods=["POST"])
+@profile.route('/buybook', methods=["GET"])
 @login_required
-# @jwt_required()
+@jwt_required()
 def buy():
     try:
-        requestData = request.get_json()
-        bookisbn_ = requestData.get('isbn')
-        bookcount = requestData.get('count')
-        # check if the item to buy is in the dataset
-        bookToBuy = store_data_cleaned[store_data_cleaned["isbn"] == bookisbn_]
-        if(not bookToBuy.empty):
-            book = PurchasedItem(book_isbn=bookisbn_,
-                                 count=bookcount, user_id=current_user.id)
-            db.session.add(book)
+        cart = current_user.cart
+        orderid = 1
+        if(cart):
+            # order_id is same for all items in that cart, so we can see what items were in a single order
+            max_order_id = db.session.query(
+                func.max(PurchasedItem.order_id)).one()
+            if(max_order_id[0] is not None):
+                orderid = max_order_id[0] + 1
+            for cartItem in cart:
+                purchasedItem = PurchasedItem(
+                    book_isbn=cartItem.book_isbn, order_id=orderid, count=cartItem.count, user_id=current_user.id)
+                db.session.add(purchasedItem)
+                db.session.commit()
+            # remove the items from cart
+            db.session.query(CartItem).delete()  # remove the items from cart
             db.session.commit()
-            return jsonify(msg="Book purchase successful", bookisbn=bookisbn_, count=bookcount), 200
-        raise Exception('Item that you added is not in the dataset')
+            return jsonify(msg="Book purchase successful"), 200
+        raise Exception('Cart is empty')
     except Exception as e:
         print(e)
         return jsonify(msg="Some error occured during purchase. Try again.", errmsg=str(e)), 500
@@ -121,7 +128,7 @@ def buy():
 
 @profile.route('/purchasehistory', methods=["GET"])
 @login_required
-# @jwt_required()
+@jwt_required()
 def getPurchaseHistory():
     try:
         purchasedf = pd.DataFrame()
@@ -132,11 +139,11 @@ def getPurchaseHistory():
                 book = store_data_cleaned[store_data_cleaned["isbn"]
                                           == purchasedItem.book_isbn]
                 if(not book.empty):
-                    book['purchase_id'] = purchasedItem.purchase_id
+                    book['order_id'] = purchasedItem.purchase_id
                     book['count'] = purchasedItem.count
                     book['date'] = purchasedItem.date
                     purchasedf = purchasedf.append(book)
-            return purchasedf.set_index("purchase_id").to_json(orient='index'), 200
+            return purchasedf.set_index("order_id").to_json(orient='index'), 200
         return jsonify(None), 200
     except Exception as e:
         print(e)

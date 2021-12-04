@@ -49,13 +49,14 @@ def getrecommendation():
 
         scores = list(enumerate(cs[isbn]))
         sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
-        sorted_scores = sorted_scores[1:]
+        sorted_scores = sorted_scores[1:6]
+        print(sorted_scores)
 
         j = 0
         print('the most similar to', title, 'are:\n')
         for item in sorted_scores:
             title = df[df.id == item[0]]['title'].values[0]
-            print(j+1, title)
+            # print(j+1, title)
             isbn_list.append(item[0])
             j = j+1
             if j >= count:
@@ -65,7 +66,8 @@ def getrecommendation():
             recommend_list = recommend_list.append(
                 df[df["id"] == isbn_list[i]])
 
-        print(recommend_list)
+        print(recommend_list[['isbn', 'title',
+              'author']])
 
         return recommend_list.to_json(orient='index'), 200
 
@@ -75,18 +77,37 @@ def getrecommendation():
                        errmsg=str(e)), 500
 
 
+# @recommendation.route('/search', methods=["GET"])
+# def search():
+#     try:
+#         result = pd.DataFrame()
+#         result.empty
+#         query = request.args.get('title')
+#         print(query)
+#         result = store_data[store_data["title"].str.contains(
+#             query, case=False)].head(10)
+#         print(result)
+#         if(not result.empty):
+#             return result.to_json(orient='index'), 200
+#         return jsonify(None), 500
+#     except Exception as e:
+#         print(str(e))
+#         return jsonify(msg="Error occured", errmsg=str(e)), 400
+
 @recommendation.route('/search', methods=["GET"])
 def search():
     try:
-        result = pd.DataFrame()
-        result.empty
         query = request.args.get('title')
-        print(query)
-        result = store_data[store_data["title"].str.contains(
-            query, case=False)].head(10)
-        print(result)
-        if(not result.empty):
-            return result.to_json(orient='index'), 200
+        p = '|'.join(query.split())
+        res = store_data[store_data['title'].str.contains(r'\b{}\b'.format(p))]
+
+        # list comprehension
+        res = store_data[[any(i in words for i in query.split())
+                          for words in store_data['title'].str.split().values]]
+
+        print(res)
+        if(not res.empty):
+            return res.head(10).to_json(orient='index'), 200
         return jsonify(None), 500
     except Exception as e:
         print(str(e))

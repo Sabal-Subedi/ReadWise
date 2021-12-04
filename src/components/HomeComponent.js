@@ -11,17 +11,11 @@ function HomeComponent({
   scifiList,
   fictionList,
   mysteryList,
+  isLoading,
 }) {
   return (
     <div className="homeContainer">
-      {topList &&
-      popularList &&
-      romanceList &&
-      horrorList &&
-      thrillerList &&
-      scifiList &&
-      fictionList &&
-      mysteryList ? (
+      {!isLoading ? (
         <div className="homeElement">
           <div className="homecomp__group">
             <p className="group__title">Top Rated</p>
