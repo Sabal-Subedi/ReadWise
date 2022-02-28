@@ -1,24 +1,27 @@
 .navbar {
-  height: 50px;
+  height: 70px;
   display: flex;
   justify-content: left;
   align-items: center;
-  background-color: #56baed;
+  background-color: black;
   top: 0;
   z-index: 100;
   width: 100%;
   position: sticky;
   font-family: "Sans-serif";
+  margin-bottom: 0%;
 }
 
 .navbar__intro {
   display: flex;
+  margin-top: 10px;
 }
 
 .navbar__title {
-  padding-top: 20px;
-  margin-right: 45px;
   color: white;
+  margin-top: 0;
+  margin-left: 20px;
+  margin-right: 0;
 }
 
 .navbar__title:hover {
@@ -34,11 +37,14 @@
   object-fit: contain;
   margin: 5px 5px;
   padding-bottom: 15px;
+  color: white;
 }
 
 .navbar__serach {
-  width: 70%;
+  width: 40%;
   display: flex;
+  margin-top: 10px;
+  margin-left: 25em;
 }
 
 .navbar__searchInput {
@@ -57,20 +63,27 @@
   padding: 5px;
   background-color: gainsboro;
   cursor: pointer;
+  margin-top: 0.1em;
+  margin-left: 3px;
 }
 
 .navbar__searchIcon:hover {
   background-color: red;
   cursor: pointer;
 }
-
+.history__logo:hover {
+  background-color: red;
+  cursor: pointer;
+}
 .navbar__nav {
   display: flex;
   justify-content: space-evenly;
+  margin-left: 1em;
 }
 
 .navbar__optionLineOne {
   font-size: 10px;
+  margin-top: 10px;
 }
 
 .navbar__optionLineTwo {
@@ -81,7 +94,7 @@
 .navbar__option {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 0;
   margin-right: 10px;
   color: white;
   justify-content: space-evenly;
@@ -91,6 +104,8 @@
   display: flex;
   color: white;
   align-items: center;
+  margin-top: 7px;
+  margin-left: 0.3em;
 }
 
 .basket__logo {
@@ -109,4 +124,12 @@
 .navbar__option:hover {
   color: red;
   font-size: 12px;
+}
+.navbar__optionhis {
+  margin-left: 0.4em;
+}
+.history__logo {
+  margin-top: 9px;
+  color: white;
+  margin-left: 0;
 }

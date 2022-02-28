@@ -2,15 +2,27 @@ import React from "react";
 import "../css/HomeComponent.css";
 import BookContainer from "./BookContainer";
 
-function HomeComponent({ bookList, basketItem, setBasketItem }) {
+function HomeComponent({
+  topList,
+  popularList,
+  romanceList,
+  horrorList,
+  thrillerList,
+  scifiList,
+  fictionList,
+  mysteryList,
+  isLoading,
+}) {
   return (
     <div className="homeContainer">
-      {bookList ? (
+      {!isLoading ? (
         <div className="homeElement">
-          <div className="homecomp__group">Best Selling:</div>
-          {bookList.map((book) => (
+          <div className="homecomp__group">
+            <p className="group__title">Top Rated</p>
+          </div>
+          {topList.map((book) => (
             <BookContainer
-              id={book["id"]}
+              id={book["isbn"]}
               author={book["author"]}
               description={book["description"]}
               title={book["title"]}
@@ -19,23 +31,125 @@ function HomeComponent({ bookList, basketItem, setBasketItem }) {
               image={book["image_url"]}
               rating={book["rating"]}
               price={parseInt(book["price"])}
-              setBasketItem={setBasketItem}
-              basketItem={basketItem}
             />
           ))}
-          <div className="homecomp__group">Best rated:</div>
-          {bookList.map((book) => (
+
+          <div className="homecomp__group">
+            <p className="group__title">Top Selling</p>
+          </div>
+          {popularList.map((book) => (
             <BookContainer
-              id={book["8"]}
+              id={book["isbn"]}
               author={book["author"]}
+              description={book["description"]}
               title={book["title"]}
               page={book["page"]}
               genre={book["genre"]}
               image={book["image_url"]}
               rating={book["rating"]}
               price={parseInt(book["price"])}
-              setBasketItem={setBasketItem}
-              basketItem={basketItem}
+            />
+          ))}
+
+          <div className="homecomp__group">
+            <p className="group__title">Romance</p>
+          </div>
+          {romanceList.map((book) => (
+            <BookContainer
+              id={book["isbn"]}
+              author={book["author"]}
+              description={book["description"]}
+              title={book["title"]}
+              page={book["page"]}
+              genre={book["genre"]}
+              image={book["image_url"]}
+              rating={book["rating"]}
+              price={parseInt(book["price"])}
+            />
+          ))}
+
+          <div className="homecomp__group">
+            <p className="group__title">Horror</p>
+          </div>
+          {horrorList.map((book) => (
+            <BookContainer
+              id={book["isbn"]}
+              author={book["author"]}
+              description={book["description"]}
+              title={book["title"]}
+              page={book["page"]}
+              genre={book["genre"]}
+              image={book["image_url"]}
+              rating={book["rating"]}
+              price={parseInt(book["price"])}
+            />
+          ))}
+
+          <div className="homecomp__group">
+            <p className="group__title">Thriller</p>
+          </div>
+          {thrillerList.map((book) => (
+            <BookContainer
+              id={book["isbn"]}
+              author={book["author"]}
+              description={book["description"]}
+              title={book["title"]}
+              page={book["page"]}
+              genre={book["genre"]}
+              image={book["image_url"]}
+              rating={book["rating"]}
+              price={parseInt(book["price"])}
+            />
+          ))}
+
+          <div className="homecomp__group">
+            <p className="group__title">Science Fiction</p>
+          </div>
+          {scifiList.map((book) => (
+            <BookContainer
+              id={book["isbn"]}
+              author={book["author"]}
+              description={book["description"]}
+              title={book["title"]}
+              page={book["page"]}
+              genre={book["genre"]}
+              image={book["image_url"]}
+              rating={book["rating"]}
+              price={parseInt(book["price"])}
+            />
+          ))}
+
+          <div className="homecomp__group">
+            <p className="group__title">Fiction</p>
+          </div>
+          {fictionList.map((book) => (
+            <BookContainer
+              id={book["isbn"]}
+              author={book["author"]}
+              description={book["description"]}
+              title={book["title"]}
+              page={book["page"]}
+              genre={book["genre"]}
+              image={book["image_url"]}
+              rating={book["rating"]}
+              price={parseInt(book["price"])}
+            />
+          ))}
+
+          <div className="homecomp__group">
+            <p className="group__title">Mystery</p>
+          </div>
+          {mysteryList.map((book) => (
+            <BookContainer
+              id={book["isbn"]}
+              author={book["author"]}
+              description={book["description"]}
+              title={book["title"]}
+              page={book["page"]}
+              genre={book["genre"]}
+              image={book["image_url"]}
+              rating={book["rating"]}
+              price={parseInt(book["price"])}
             />
           ))}
         </div>

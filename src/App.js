@@ -1,19 +1,32 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CartContainer from "./components/CartContainer";
+import Footer from "./components/Footer";
 import HomeComponent from "./components/HomeComponent";
 import LoginPage from "./components/LoginPage";
 import NavBarComponent from "./components/NavbarComponent";
 import ProductDetails from "./components/ProductDetails";
 import RegistrationPage from "./components/RegistrationPage";
-// import SearchBooks from "./components/SearchBooks";
+import SearchResult from "./components/SearchResult";
+import PurchaseHistory from "./components/PurchaseHistory";
+import "./App.css";
 
 function App() {
-  const [bookList, setBookList] = useState(null);
-  const [basketItem, setBasketItem] = useState([]);
+  const [topList, setTopList] = useState(null);
+  const [popularList, setPopularList] = useState(null);
+  const [fictionList, setFictionList] = useState(null);
+  const [romanceList, setRomanceList] = useState(null);
+  const [horrorList, setHorrorList] = useState(null);
+  const [mysteryList, setMysteryList] = useState(null);
+  const [scifiList, setScifiList] = useState(null);
+  const [thrillerList, setThrillerList] = useState(null);
+  const [userToken, setUserToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    fetch("/getbooklist")
+    setUserToken(localStorage.getItem("userToken"));
+    fetch("/books/gettopbooks?count=5")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -21,15 +34,88 @@ function App() {
       .then((data) => {
         console.log(data);
         const result = Object.values(data);
-        // console.log(result);
-        // result.map((re) => console.log(re));
-        setBookList(result);
+        setTopList(result);
+      });
 
-        // setBookList(data);
+    fetch("/books/getmostpopular?count=5")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setPopularList(result);
+      });
+
+    fetch("/books/gettopfiction?count=5")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setFictionList(result);
+      });
+
+    fetch("/books/gettopromance?count=5")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setRomanceList(result);
+      });
+
+    fetch("/books/gettophorror?count=5")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setHorrorList(result);
+      });
+
+    fetch("/books/gettopmystery?count=5")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setMysteryList(result);
+      });
+
+    fetch("/books/gettopthriller?count=5")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setThrillerList(result);
+      });
+
+    fetch("/books/gettopscifi?count=5")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const result = Object.values(data);
+        setScifiList(result);
+        setIsLoading(false);
       });
   }, []);
 
-  console.log(bookList);
   return (
     <div className="App">
       <Router>
@@ -39,37 +125,66 @@ function App() {
           </Route>
           <Route path="/checkout">
             <NavBarComponent
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
+              userToken={userToken}
+              setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
-            <CartContainer
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
-            />
+            <CartContainer refresh={refresh} setRefresh={setRefresh} />
+            <Footer />
           </Route>
           <Route path="/productdetails">
             <NavBarComponent
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
+              userToken={userToken}
+              setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
-            <ProductDetails
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
+            <ProductDetails refresh={refresh} setRefresh={setRefresh} />
+            <Footer />
+          </Route>
+          <Route path="/searchresult">
+            <NavBarComponent
+              userToken={userToken}
+              setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
+            <SearchResult />
+            <Footer />
           </Route>
           <Route path="/register">
             <RegistrationPage />
           </Route>
+          <Route path="/purchasehistory">
+            <NavBarComponent
+              userToken={userToken}
+              setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
+            <PurchaseHistory />
+            <Footer />
+          </Route>
           <Route path="/">
             <NavBarComponent
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
+              userToken={userToken}
+              setUserToken={setUserToken}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
             <HomeComponent
-              bookList={bookList}
-              basketItem={basketItem}
-              setBasketItem={setBasketItem}
+              topList={topList}
+              popularList={popularList}
+              romanceList={romanceList}
+              horrorList={horrorList}
+              thrillerList={thrillerList}
+              scifiList={scifiList}
+              fictionList={fictionList}
+              mysteryList={mysteryList}
+              isLoading={isLoading}
             />
+            <Footer />
           </Route>
         </Switch>
       </Router>

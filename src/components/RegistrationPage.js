@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "../css/Registration.css";
-import register from "../images/register.png";
 
 function RegistrationPage() {
   const [name, setName] = useState("");
@@ -11,23 +10,26 @@ function RegistrationPage() {
 
   const registerHandler = (e) => {
     e.preventDefault();
-
-    // fetch("/registeruser", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     name: name,
-    //     email: email,
-    //     password: password,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((message) => {
-    //     console.log(message);
-    //   });
     console.log(name, email, password);
-
-    history.push("/login");
+    fetch("/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: name,
+        email: email,
+        password: password,
+      }),
+    }).then((res) => {
+      res.json().then((r) => {
+        if (res.status === 201) {
+          localStorage.setItem("userToken", r["access_token"]);
+          console.log(r["access_token"]);
+          history.push("/");
+        } else {
+          alert(r["errmsg"]);
+        }
+      });
+    });
   };
 
   return (
