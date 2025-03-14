@@ -31,3 +31,8 @@ This ReadWise leverages Machine Learning and AI to provide personalized suggesti
 
 ### 📌 Installation  
 - 1️⃣ Clone the repository [Click here](https://github.com/Sabal-Subedi/ReadWise.git)
+- 2️⃣ Navigate to the project directory
+- 3️⃣ Install dependencies
+  - npm install
+- 4️⃣ Run the development server
+- 5️⃣ Open the app in your browser [Click here](http://localhost:3000)
